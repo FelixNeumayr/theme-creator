@@ -1,33 +1,38 @@
-import React from "react";
 import { initialColors } from "./lib/colors";
 import Color from "./Components/Color/color/Color";
 import "./App.css";
 import ColorForm from "./Components/Color/form/ColorForm";
 import { useState } from "react";
 import { uid } from "uid";
-import { DeleteButton } from "./Components/Color/color/Color";
 
 function App() {
   const [colors, setColors] = useState(initialColors);
+  const [haveColors, setHaveColors] = useState(true);
 
   function handleSubmitColor(data) {
     setColors([{ id: uid(), ...data }, ...colors]);
+    setHaveColors(true);
   }
-  
-  // function handleDelete(){
-  //   console.log("wird gelöscht");
-  // }   wie gehts weiter, wenn ich auf delete und delete bestätigen drücke?
 
-
-
+  function handleDelete(onFindId) {
+    const filteredColors = colors.filter((color) => color.id !== onFindId);
+    setColors(filteredColors);
+    if (filteredColors.length === 0) {
+      setHaveColors(false);
+    }
+  }
 
   return (
     <>
       <h1>Theme Creator</h1>
       <ColorForm onSubmitColor={handleSubmitColor} />
-      {colors.map((color) => (
-        <Color key={color.id} color={color} />
-      ))}
+
+      {haveColors ? (
+      
+      colors.map((color) => (
+        <Color key={color.id} color={color} onIdFromDelete={handleDelete} />
+      ))
+    ) : ( <p>No colors.. start by adding one!</p>)}
     </>
   );
 }
