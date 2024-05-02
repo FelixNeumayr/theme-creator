@@ -1,4 +1,3 @@
-import React from "react";
 import { initialColors } from "./lib/colors";
 import Color from "./Components/Color/color/Color";
 import "./App.css";
@@ -8,20 +7,32 @@ import { uid } from "uid";
 
 function App() {
   const [colors, setColors] = useState(initialColors);
+  const [haveColors, setHaveColors] = useState(true);
 
-  function handleSubmitColor(data){
-    setColors([{id: uid(), ...data}, ...colors]);
-
+  function handleSubmitColor(data) {
+    setColors([{ id: uid(), ...data }, ...colors]);
+    setHaveColors(true);
   }
 
+  function handleDelete(onFindId) {
+    const filteredColors = colors.filter((color) => color.id !== onFindId);
+    setColors(filteredColors);
+    if (filteredColors.length === 0) {
+      setHaveColors(false);
+    }
+  }
 
   return (
     <>
       <h1>Theme Creator</h1>
-      <ColorForm onSubmitColor={handleSubmitColor}/>
-      {colors.map((color) => (
-        <Color key={color.id} color={color} />
-      ))}
+      <ColorForm onSubmitColor={handleSubmitColor} />
+
+      {haveColors ? (
+      
+      colors.map((color) => (
+        <Color key={color.id} color={color} onIdFromDelete={handleDelete} />
+      ))
+    ) : ( <p>No colors.. start by adding one!</p>)}
     </>
   );
 }
