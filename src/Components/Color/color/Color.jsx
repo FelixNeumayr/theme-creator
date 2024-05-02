@@ -1,13 +1,9 @@
 import "./Color.css";
 import { DeleteButton } from "../Button/Button";
-import { useState } from "react";
-import ColorForm from "../form/ColorForm";
+
 import EditButton from "../Edit";
 
-export default function Color({ color, onIdFromDelete, editing}) {
-  
-
-
+export default function Color({ color, onIdFromDelete, editing }) {
   return (
     <div
       className="color-card"
@@ -34,8 +30,7 @@ export default function Color({ color, onIdFromDelete, editing}) {
 
 //
 
-
-
-
-{/* <DeleteButton onFindId={color.id} onIdFromDelete2={onIdFromDelete} />
-      <EditButton onClick={handleEditClick} /> */}
+{
+  /* <DeleteButton onFindId={color.id} onIdFromDelete2={onIdFromDelete} />
+      <EditButton onClick={handleEditClick} /> */
+}
