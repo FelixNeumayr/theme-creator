@@ -1,9 +1,30 @@
+import ColorForm from "../form/ColorForm";
 import "./Color.css";
-import { DeleteButton } from "../Button/Button";
+import { useState } from "react";
 
-import EditButton from "../Edit";
 
-export default function Color({ color, onIdFromDelete, editing }) {
+export default function Color({ color, onIdFromDelete }) {
+
+
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
+
+function handleDelete1(){
+  if (deleteMode) {
+    onIdFromDelete(color.id);
+  } else { 
+    setDeleteMode(true);
+  }
+  }
+
+  function handleEdit1(){
+setEditMode(true);
+  }
+
+
+
+
   return (
     <div
       className="color-card"
@@ -15,22 +36,22 @@ export default function Color({ color, onIdFromDelete, editing }) {
       <h3 className="color-card-headline">{color.hex}</h3>
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
-      {!editing ? (
-        <>
-          <DeleteButton onFindId={color.id} onIdFromDelete2={onIdFromDelete} />
-          <EditButton onEditing={editing} />
-        </>
+      {editMode ? (
+        <ColorForm editMode={editMode} />
       ) : (
-        // <EditButton onClick={handleEditClick} />
-        <p>test</p>
+        deleteMode ? (
+          <p className="color-card-hightlight">
+            Really delete?
+            <button onClick={() => setDeleteMode(false)}>Cancel</button>
+            <button onClick={handleDelete1}>Confirm Delete</button>
+          </p>
+        ) : (
+          <>
+            <button onClick={handleDelete1}>Delete</button>
+            <button onClick={handleEdit1}>Edit</button>
+          </>
+        )
       )}
     </div>
-  );
-}
-
-//
-
-{
-  /* <DeleteButton onFindId={color.id} onIdFromDelete2={onIdFromDelete} />
-      <EditButton onClick={handleEditClick} /> */
+  )
 }
