@@ -22,6 +22,22 @@ function App() {
     }
   }
 
+
+  function handleUpdateColorCard(editColor){
+    
+    
+    setColors(
+      colors.map((color) => {
+        if (color.id === editColor.id) {
+          return editColor;
+        }
+        return color;
+        
+      })
+    );
+
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
@@ -29,7 +45,7 @@ function App() {
 
       {haveColors ? (
         colors.map((color) => (
-          <Color key={color.id} color={color} onIdFromDelete={handleDelete} />
+          <Color key={color.id} color={color} onIdFromDelete={handleDelete} onUpdateColorCard={handleUpdateColorCard}/>
         ))
       ) : (
         <p>No colors.. start by adding one!</p>
