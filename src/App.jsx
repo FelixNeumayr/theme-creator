@@ -4,9 +4,10 @@ import "./App.css";
 import ColorForm from "./Components/Color/form/ColorForm";
 import { useState } from "react";
 import { uid } from "uid";
+import uselocalStorageState from "use-local-storage-state";
 
 function App() {
-  const [colors, setColors] = useState(initialColors);
+  const [colors, setColors] = uselocalStorageState("colors", { defaultValue: initialColors});
   const [haveColors, setHaveColors] = useState(true);
 
   function handleSubmitColor(data) {
@@ -22,20 +23,15 @@ function App() {
     }
   }
 
-
-  function handleUpdateColorCard(editColor){
-    
-    
+  function handleUpdateColorCard(editColor) {
     setColors(
       colors.map((color) => {
         if (color.id === editColor.id) {
           return editColor;
         }
         return color;
-        
       })
     );
-
   }
 
   return (
@@ -45,7 +41,12 @@ function App() {
 
       {haveColors ? (
         colors.map((color) => (
-          <Color key={color.id} color={color} onIdFromDelete={handleDelete} onUpdateColorCard={handleUpdateColorCard}/>
+          <Color
+            key={color.id}
+            color={color}
+            onIdFromDelete={handleDelete}
+            onUpdateColorCard={handleUpdateColorCard}
+          />
         ))
       ) : (
         <p>No colors.. start by adding one!</p>
