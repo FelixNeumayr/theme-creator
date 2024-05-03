@@ -9,3 +9,8 @@
   background: black;
   color: white;
 }
+
+.copy {
+  display: flex;
+  flex-direction: row;
+}

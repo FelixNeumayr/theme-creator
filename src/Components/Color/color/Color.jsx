@@ -1,6 +1,7 @@
 import ColorForm from "../form/ColorForm";
 import "./Color.css";
 import { useState } from "react";
+import Copy from "../form/Copy";
 
 export default function Color({ color, onIdFromDelete, onUpdateColorCard }) {
   const [deleteMode, setDeleteMode] = useState(false);
@@ -26,7 +27,8 @@ export default function Color({ color, onIdFromDelete, onUpdateColorCard }) {
         color: color.contrastText,
       }}
     >
-      <h3 className="color-card-headline">{color.hex}</h3>
+      <div className="copy"> <h3 className="color-card-headline">{color.hex}</h3>
+      <Copy hex={color.hex}/></div>
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       {editMode ? (
