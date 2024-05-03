@@ -2,7 +2,7 @@ import ColorForm from "../form/ColorForm";
 import "./Color.css";
 import { useState } from "react";
 
-export default function Color({ color, onIdFromDelete, onUpdateColorCard}) {
+export default function Color({ color, onIdFromDelete, onUpdateColorCard }) {
   const [deleteMode, setDeleteMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -31,8 +31,19 @@ export default function Color({ color, onIdFromDelete, onUpdateColorCard}) {
       <p>contrast: {color.contrastText}</p>
       {editMode ? (
         <>
-          <ColorForm editMode={editMode} onUpdateColorCard1={onUpdateColorCard} setEditMode={setEditMode} initialData={color}/>
-          <button onClick={() => {setEditMode(false)}}>Cancel</button>
+          <ColorForm
+            editMode={editMode}
+            onUpdateColorCard1={onUpdateColorCard}
+            setEditMode={setEditMode}
+            initialData={color}
+          />
+          <button
+            onClick={() => {
+              setEditMode(false);
+            }}
+          >
+            Cancel
+          </button>
         </>
       ) : deleteMode ? (
         <p className="color-card-hightlight">
